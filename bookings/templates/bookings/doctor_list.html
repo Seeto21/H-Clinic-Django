@@ -1,0 +1,38 @@
+{% extends 'bookings/base.html' %}
+
+{% block content %}
+<div class="glass-container">
+    <h2 style="color: #2c3e50; font-weight: 700; margin-bottom: 25px; border-bottom: 3px solid #3498db; padding-bottom: 10px;">
+        Available Specialists
+    </h2>
+    
+    <table style="width: 100%; border-collapse: collapse; background: transparent;">
+        <thead>
+            <tr style="border-bottom: 2px solid #eee;">
+                <th style="padding: 15px; text-align: left; color: #34495e; font-size: 1.6rem;">Doctor Name</th>
+                <th style="padding: 15px; text-align: left; color: #34495e; font-size: 1.6rem;">Specialization</th>
+                <th style="padding: 15px; text-align: center; color: #34495e; font-size: 1.6rem;">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for doctor in doctors %}
+            <tr style="border-bottom: 1px solid #f0f0f0; transition: 0.3s;">
+                <td style="padding: 15px; font-size: 1.5rem; color: #2c3e50; font-weight: 500;">
+                    Dr. {{ doctor.user.get_full_name }}
+                </td>
+                <td style="padding: 15px;">
+                    <span style="background: #e1f5fe; color: #0288d1; padding: 5px 12px; border-radius: 20px; font-size: 1.3rem; font-weight: 600;">
+                        {{ doctor.specialization }}
+                    </span>
+                </td>
+                <td style="padding: 15px; text-align: center;">
+                    <a href="{% url 'book_appointment' %}" class="button" style="background-color: #3498db; color: white; padding: 8px 20px; border-radius: 5px; text-decoration: none; font-size: 1.3rem;">
+                        Book Now
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

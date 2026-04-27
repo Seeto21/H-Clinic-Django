@@ -1,0 +1,47 @@
+{% extends 'bookings/base.html' %}
+
+{% block content %}
+<div style="min-height: 100vh; background:transparent; padding-top: 50px;">
+    
+    <div style="max-width: 1100px; margin: 0 auto; padding: 20px;">
+        
+        <div style="margin-bottom: 40px; animation: fadeInUp 0.5s ease-out;">
+            <h1 style="color: #2c3e50; font-size: 2.5rem; margin-bottom: 10px;">
+                Welcome back, {{ request.user.first_name|default:request.user.username }}!
+            </h1>
+            <p style="color: #7f8c8d; font-size: 1.1rem;">How can we help you stay healthy today?</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px;">
+            
+            <div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: 0.3s; border-left: 5px solid #3498db;">
+                <h3 style="color: #2c3e50; margin-top: 0;">Find a Specialist</h3>
+                <p style="color: #636e72; margin-bottom: 25px;">Browse our list of expert doctors and book a time that works for you.</p>
+                <a href="{% url 'doctor_list' %}" class="btn-custom" style="text-decoration: none; display: inline-block;">
+                    Book Now
+                </a>
+            </div>
+
+            <div style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: 0.3s; border-left: 5px solid #2ecc71;">
+                <h3 style="color: #2c3e50; margin-top: 0;">My Schedule</h3>
+                <p style="color: #636e72; margin-bottom: 25px;">View your upcoming visits, check status, or cancel existing bookings.</p>
+                <a href="{% url 'user_appointments' %}" class="btn-custom" style="background: #2ecc71; text-decoration: none; display: inline-block;">
+                    View Appointments
+                </a>
+            </div>
+
+            
+
+        </div>
+
+        <div style="margin-top: 50px; padding: 25px; background: #ebf5fb; border-radius: 10px; border: 1px solid #d6eaf8; display: flex; align-items: center; gap: 20px;">
+            <div style="font-size: 2rem;">💡</div>
+            <div>
+                <h4 style="margin: 0; color: #2980b9;">Health Tip of the Day</h4>
+                <p style="margin: 5px 0 0 0; color: #546e7a;">Remember to stay hydrated! Drinking 8 glasses of water a day improves energy and skin health.</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

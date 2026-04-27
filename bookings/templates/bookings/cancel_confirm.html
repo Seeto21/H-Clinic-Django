@@ -1,0 +1,25 @@
+{% extends 'bookings/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>⚠️ Cancel Appointment?</h2>
+    
+    <p>Are you sure you want to cancel your appointment with <strong>{{ appointment.doctor }}</strong>?</p>
+    
+    <div class="row">
+        <div class="column">
+            <p><strong>Date:</strong> {{ appointment.date }}</p>
+            <p><strong>Time:</strong> {{ appointment.timeslot }}</p>
+        </div>
+    </div>
+
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="button" style="background-color: #d33; border-color: #d33;">
+            Yes, Cancel This Appointment
+        </button>
+        <a href="{% url 'user_appointments' %}" class="button button-outline">No, Keep It</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends 'bookings/base.html' %}
+
+{% block content %}
+<div class="glass-container" style="max-width: 450px; margin: 100px auto;">
+    <h2 style="text-align: center; color: #2c3e50; margin-bottom: 10px; font-weight: 700;">Create an Account</h2>
+    <p style="text-align: center; color: #7f8c8d; margin-bottom: 30px;">Join our medical community</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        
+        <style>
+            form div label {
+                display: block;
+                font-weight: 600;
+                margin-bottom: 5px;
+                color: #34495e;
+            }
+            form div input, form div select {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #dcdde1;
+                border-radius: 6px;
+                transition: 0.3s;
+                box-sizing: border-box; /* Prevents input from overflowing */
+            }
+            form div input:focus {
+                border-color: #3498db;
+                outline: none;
+                box-shadow: 0 0 8px rgba(52, 152, 219, 0.2);
+            }
+        </style>
+        
+        {% for field in form %}
+            <div style="margin-bottom: 15px;">
+                <label>{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <div style="color: #e74c3c; font-size: 0.85rem; margin-top: 5px;">
+                        {{ field.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <button type="submit" style="
+            width: 100%; 
+            padding: 12px; 
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white; 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-size: 18px;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+            transition: 0.3s;
+            margin-top: 10px;
+        ">
+            Sign Up
+        </button>
+    </form>
+
+    <div style="text-align: center; margin-top: 25px; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 15px;">
+        <p style="color: #636e72;">Already have an account? 
+            <a href="{% url 'login' %}" style="color: #3498db; text-decoration: none; font-weight: bold;">
+               Login here
+            </a>
+        </p>
+    </div>
+</div>
+{% endblock %}

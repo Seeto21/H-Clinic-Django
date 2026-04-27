@@ -1,0 +1,78 @@
+{% extends 'bookings/base.html' %}
+
+{% block content %}
+<div style="
+    min-height: 100vh; 
+    width: 100%; 
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(44, 62, 80, 0.6)), 
+                url('https://www.shutterstock.com/image-photo/welcome-old-woman-doctor-shaking-600nw-2462418531.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    padding: 60px 20px;
+    box-sizing: border-box;
+">
+
+    <div style="max-width: 1100px; margin: 0 auto; background-color: #ffffff; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); padding: 35px; animation: fadeInUp 0.6s ease-out;">
+        
+        <h2 style="color: #2c3e50; border-bottom: 3px solid #3498db; padding-bottom: 15px; margin-bottom: 30px; font-weight: 700; font-size: 1.8rem;">
+            My Scheduled Appointments
+        </h2>
+
+        <table style="width: 100%; border-collapse: collapse; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+            <thead>
+                <tr style="background-color: #f8f9fa; border-bottom: 2px solid #dee2e6;">
+                    <th style="padding: 18px 15px; text-align: left; color: #495057; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;">Doctor</th>
+                    <th style="padding: 18px 15px; text-align: left; color: #495057; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;">Date</th>
+                    <th style="padding: 18px 15px; text-align: left; color: #495057; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;">Time</th>
+                    <th style="padding: 18px 15px; text-align: center; color: #495057; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;">Status</th>
+                    <th style="padding: 18px 15px; text-align: center; color: #495057; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for appt in appointments %}
+                <tr style="border-bottom: 1px solid #f1f1f1; transition: background 0.3s;" onmouseover="this.style.backgroundColor='#fafafa'" onmouseout="this.style.backgroundColor='transparent'">
+                    <td style="padding: 15px; color: #2c3e50; font-weight: 600;">
+                        Dr. {{ appt.doctor.user.get_full_name|default:appt.doctor.user.username }}
+                    </td>
+                    <td style="padding: 15px; color: #555;">{{ appt.date }}</td>
+                    <td style="padding: 15px; color: #555;">{{ appt.timeslot }}</td>
+                    <td style="padding: 15px; text-align: center;">
+                        {% if appt.is_confirmed %}
+                            <span style="color: #28a745; background: #e8f5e9; padding: 6px 14px; border-radius: 50px; font-weight: bold; font-size: 0.8rem; display: inline-block;">
+                                ● Confirmed
+                            </span>
+                        {% else %}
+                            <span style="color: #fd7e14; background: #fff3e0; padding: 6px 14px; border-radius: 50px; font-weight: bold; font-size: 0.8rem; display: inline-block;">
+                                ● Pending
+                            </span>
+                        {% endif %}
+                    </td>
+                    <td style="padding: 15px; text-align: center;">
+                        <a href="{% url 'cancel_appointment' appt.pk %}" 
+                           style="color: #dc3545; text-decoration: none; font-weight: 600; border: 1px solid #dc3545; padding: 7px 20px; border-radius: 6px; transition: 0.3s; font-size: 0.9rem;"
+                           onmouseover="this.style.backgroundColor='#dc3545'; this.style.color='white';"
+                           onmouseout="this.style.backgroundColor='transparent'; this.style.color='#dc3545';">
+                            Cancel
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" style="padding: 50px; text-align: center; color: #999; font-style: italic;">
+                        You have no upcoming appointments at this time.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <div style="margin-top: 35px; text-align: right;">
+            <a href="{% url 'book_appointment' %}" class="btn-custom" 
+               style="text-decoration: none; background: #3498db; color: white; padding: 12px 25px; border-radius: 6px; font-weight: 600; transition: 0.3s; display: inline-block;">
+                + Book Another Appointment
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
